@@ -16,16 +16,16 @@ export class RoomUseCase {
     await this.roomRepo.create(room);
   }
 
-  async get(input: { roomId: string }): Promise<any> {
-    return this.roomRepo.findById(input.roomId);
+  async get(input: { id: string }): Promise<any> {
+    return this.roomRepo.findById(input.id);
   }
 
   async list(): Promise<any[]> {
     return this.roomRepo.list();
   }
 
-  async update(roomId: string, input: Partial<Room>): Promise<void> {
-    const room = await this.roomRepo.findById(roomId);
+  async update(id: string, input: Partial<Room>): Promise<void> {
+    const room = await this.roomRepo.findById(id);
     if (!room) {
       throw new Error('Room not found');
     }

@@ -23,17 +23,17 @@ export class RoomController {
     return { rooms };
   }
 
-  @Get(':roomId')
+  @Get(':id')
   async get(@Body() body: any) {
     const room = await this.roomUseCase.get({
-      roomId: body.roomId,
+      id: body.id,
     });
     return { room };
   }
 
-  @Patch(':roomId')
-  async update(@Param('roomId') roomId: string, @Body() body: UpdateRoomDto) {
-    await this.roomUseCase.update(roomId, body);
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateRoomDto) {
+    await this.roomUseCase.update(id, body);
     return { message: 'Room updated successfully' };
   }
 }
