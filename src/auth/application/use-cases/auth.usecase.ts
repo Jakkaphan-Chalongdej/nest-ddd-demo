@@ -28,21 +28,20 @@ export class AuthUseCase {
     if (!isMatch) throw new Error('Invalid credentials');
 
     const payload = { sub: user.id, email: user.email };
-    const accessToken = await this.jwtService.signAsync(payload, {
+    const access_token = await this.jwtService.signAsync(payload, {
       expiresIn: '15m',
     });
-    const refreshToken = await this.jwtService.signAsync(payload, {
+    const refresh_token = await this.jwtService.signAsync(payload, {
       expiresIn: '7d',
     });
 
-    return { accessToken, refreshToken };
+    return { access_token, refresh_token };
   }
 
   async renew(refreshToken: string) {
     try {
       const payload = await this.jwtService.verifyAsync(refreshToken);
-      console.log(`🐛  • payload:`, payload);
-      const newAccessToken = await this.jwtService.signAsync(
+      const new_access_token = await this.jwtService.signAsync(
         {
           sub: payload.sub,
           email: payload.email,
@@ -50,7 +49,7 @@ export class AuthUseCase {
         { expiresIn: '15m' },
       );
 
-      return { accessToken: newAccessToken };
+      return { access_token: new_access_token };
     } catch (err) {
       throw new Error('Invalid refresh token');
     }

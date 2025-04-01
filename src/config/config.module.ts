@@ -9,6 +9,7 @@ import * as Joi from 'joi';
       envFilePath: `.env${
         process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ''
       }`,
+      load: [() => ({ JWT_SECRET: process.env.JWT_SECRET })],
       validationSchema: Joi.object({
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.number().required(),
