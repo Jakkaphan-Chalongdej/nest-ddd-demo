@@ -12,16 +12,16 @@ export class UserUseCase {
     await this.userRepo.create(user);
   }
 
-  async get(input: { userId: string }): Promise<User | null> {
-    return this.userRepo.findById(input.userId);
+  async get(input: { id: string }): Promise<User | null> {
+    return this.userRepo.findById(input.id);
   }
 
   async list(): Promise<User[]> {
     return this.userRepo.list();
   }
 
-  async update(userId: string, input: Partial<User>): Promise<void> {
-    const user = await this.userRepo.findById(userId);
+  async update(id: string, input: Partial<User>): Promise<void> {
+    const user = await this.userRepo.findById(id);
     if (!user) {
       throw new Error('User not found');
     }
@@ -29,7 +29,7 @@ export class UserUseCase {
       user.password = await bcrypt.hash(input.password, 10);
     }
     const updatedUser = new User(
-      userId,
+      id,
       input.email || user.email,
       input.password || user.password,
       input.name || user.name,
@@ -37,8 +37,8 @@ export class UserUseCase {
     await this.userRepo.update(updatedUser);
   }
 
-  async delete(input: { userId: string }): Promise<void> {
-    const user = await this.userRepo.findById(input.userId);
+  async delete(input: { id: string }): Promise<void> {
+    const user = await this.userRepo.findById(input.id);
     if (!user) {
       throw new Error('User not found');
     }

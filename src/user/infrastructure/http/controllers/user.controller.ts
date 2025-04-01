@@ -31,23 +31,23 @@ export class UserController {
     return { users };
   }
 
-  @Get(':userId')
-  async get(@Param('userId') userId: string) {
+  @Get(':id')
+  async get(@Param('id') id: string) {
     const user = await this.userUseCase.get({
-      userId: userId,
+      id: id,
     });
     return { user };
   }
 
-  @Patch(':userId')
-  async update(@Param('userId') userId: string, @Body() body: UpdateUserDto) {
-    await this.userUseCase.update(userId, body);
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateUserDto) {
+    await this.userUseCase.update(id, body);
     return { message: 'Room updated successfully' };
   }
 
-  @Delete(':userId')
-  async delete(@Param('userId') userId: string) {
-    await this.userUseCase.delete({ userId });
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    await this.userUseCase.delete({ id });
     return { message: 'User deleted successfully' };
   }
 }
