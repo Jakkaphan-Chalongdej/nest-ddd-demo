@@ -33,8 +33,8 @@ async function bootstrap() {
   app.use(new BasicAuthSwagger().use);
   // Swagger
   const options = new DocumentBuilder()
-    .setTitle('Nestjs DDD API')
-    .setDescription('The Nestjs DDD API description')
+    .setTitle('Hotel Booking API Demo')
+    .setDescription('Nestjs DDD API Hotel Booking Description')
     .setVersion('1.0')
     .addBearerAuth(
       { in: 'headers', type: 'http', name: 'JWT_ACCESS_TOKEN' },
