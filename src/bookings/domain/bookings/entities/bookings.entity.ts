@@ -1,10 +1,10 @@
 export class Booking {
   constructor(
     public id: string,
-    public userId: string,
-    public roomId: string,
-    public checkIn: Date,
-    public checkOut: Date,
+    public user_id: string,
+    public room_id: string,
+    public check_in: Date,
+    public check_out: Date,
     public status: 'PENDING' | 'CONFIRMED' | 'CANCELLED' = 'PENDING',
   ) {}
 }

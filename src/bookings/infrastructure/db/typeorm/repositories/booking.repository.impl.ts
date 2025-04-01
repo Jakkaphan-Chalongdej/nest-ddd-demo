@@ -26,10 +26,10 @@ export class BookingRepositoryTypeOrm implements BookingRepository {
     if (!entity) return null;
     return new Booking(
       entity.id,
-      entity.userId,
-      entity.roomId,
-      entity.checkIn,
-      entity.checkOut,
+      entity.user_id,
+      entity.room_id,
+      entity.check_in,
+      entity.check_out,
       entity.status as any,
     );
   }
@@ -38,16 +38,16 @@ export class BookingRepositoryTypeOrm implements BookingRepository {
     await this.repo.update(id, { status: 'CANCELLED' });
   }
 
-  async listByUser(userId: string): Promise<Booking[]> {
-    const entities = await this.repo.findBy({ userId });
+  async listByUser(user_id: string): Promise<Booking[]> {
+    const entities = await this.repo.findBy({ user_id });
     return entities.map(
       (e) =>
         new Booking(
           e.id,
-          e.userId,
-          e.roomId,
-          e.checkIn,
-          e.checkOut,
+          e.user_id,
+          e.room_id,
+          e.check_in,
+          e.check_out,
           e.status as any,
         ),
     );

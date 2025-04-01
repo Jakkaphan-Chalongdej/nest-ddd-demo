@@ -5,19 +5,19 @@ export class UpdateBookingDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  userId: string;
+  user_id: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  roomId: string;
+  room_id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  checkIn: Date;
+  check_in: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  checkOut: Date;
+  check_out: string;
 }

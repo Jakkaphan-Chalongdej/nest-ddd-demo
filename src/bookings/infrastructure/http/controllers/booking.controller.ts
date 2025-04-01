@@ -14,44 +14,45 @@ export class BookingController {
   @Post()
   async create(@Body() body: CreateBookingDto) {
     await this.bookingUseCase.create({
-      userId: body.userId,
-      roomId: body.roomId,
-      checkIn: new Date(body.checkIn),
-      checkOut: new Date(body.checkOut),
+      user_id: body.user_id,
+      room_id: body.room_id,
+      check_in: new Date(body.check_in),
+      check_out: new Date(body.check_out),
     });
     return { message: 'Booking created successfully' };
   }
 
-  @Post(':bookingId/cancel')
-  async cancel(@Param('bookingId') bookingId: string) {
+  @Post(':id/cancel')
+  async cancel(@Param('id') id: string) {
     await this.bookingUseCase.cancel({
-      bookingId,
+      id,
     });
     return { message: 'Booking cancelled successfully' };
   }
 
-  @Get(':bookingId')
-  async get(@Param('bookingId') bookingId: string) {
+  @Get(':id')
+  async get(@Param('id') id: string) {
     const booking = await this.bookingUseCase.get({
-      bookingId: bookingId,
+      id: id,
     });
     return { booking };
   }
 
-  @Get('user/:userId')
-  async listByUser(@Param('userId') userId: string) {
+  @Get('user/:user_id')
+  async listByUser(@Param('user_id') user_id: string) {
     const bookings = await this.bookingUseCase.listByUser({
-      userId: userId,
+      user_id: user_id,
     });
     return { bookings };
   }
 
-  @Patch(':bookingId')
-  async update(
-    @Param('bookingId') bookingId: string,
-    @Body() body: UpdateBookingDto,
-  ) {
-    await this.bookingUseCase.update(bookingId, body);
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateBookingDto) {
+    await this.bookingUseCase.update(id, {
+      ...body,
+      check_in: new Date(body.check_in),
+      check_out: new Date(body.check_out),
+    });
     return { message: 'Booking updated successfully' };
   }
 }

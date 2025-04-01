@@ -6,16 +6,16 @@ export class BookingOrmEntity {
   id: string;
 
   @Column()
-  userId: string;
+  user_id: string;
 
   @Column()
-  roomId: string;
+  room_id: string;
 
   @Column()
-  checkIn: Date;
+  check_in: Date;
 
   @Column()
-  checkOut: Date;
+  check_out: Date;
 
   @Column()
   status: string;

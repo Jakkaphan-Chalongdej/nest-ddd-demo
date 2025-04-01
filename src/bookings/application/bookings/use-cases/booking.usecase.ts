@@ -5,61 +5,61 @@ export class BookingUseCase {
   constructor(private readonly bookingRepo: BookingRepository) {}
 
   async create(input: {
-    userId: string;
-    roomId: string;
-    checkIn: Date;
-    checkOut: Date;
+    user_id: string;
+    room_id: string;
+    check_in: Date;
+    check_out: Date;
   }): Promise<void> {
     const booking = new Booking(
       uuidv4(),
-      input.userId,
-      input.roomId,
-      input.checkIn,
-      input.checkOut,
+      input.user_id,
+      input.room_id,
+      input.check_in,
+      input.check_out,
       'PENDING',
     );
     await this.bookingRepo.create(booking);
   }
 
-  async get(input: { bookingId: string }): Promise<Booking | null> {
-    return this.bookingRepo.findById(input.bookingId);
+  async get(input: { id: string }): Promise<Booking | null> {
+    return this.bookingRepo.findById(input.id);
   }
 
-  async findById(input: { bookingId: string }): Promise<Booking | null> {
-    return this.bookingRepo.findById(input.bookingId);
+  async findById(input: { id: string }): Promise<Booking | null> {
+    return this.bookingRepo.findById(input.id);
   }
 
-  async listByUser(input: { userId: string }): Promise<Booking[]> {
-    return this.bookingRepo.listByUser(input.userId);
+  async listByUser(input: { user_id: string }): Promise<Booking[]> {
+    return this.bookingRepo.listByUser(input.user_id);
   }
 
   async update(
-    bookingId: string,
+    id: string,
     input: {
-      userId: string;
-      roomId: string;
-      checkIn: Date;
-      checkOut: Date;
+      user_id: string;
+      room_id: string;
+      check_in: Date;
+      check_out: Date;
     },
   ): Promise<void> {
-    const booking = await this.bookingRepo.findById(bookingId);
+    const booking = await this.bookingRepo.findById(id);
     if (!booking) {
       throw new Error('Booking not found');
     }
-    if (input.checkIn) {
-      booking.checkIn = input.checkIn;
+    if (input.check_in) {
+      booking.check_in = input.check_in;
     }
-    if (input.checkOut) {
-      booking.checkOut = input.checkOut;
+    if (input.check_out) {
+      booking.check_out = input.check_out;
     }
     await this.bookingRepo.update(booking);
   }
 
-  async cancel(input: { bookingId: string }): Promise<void> {
-    const booking = await this.bookingRepo.findById(input.bookingId);
+  async cancel(input: { id: string }): Promise<void> {
+    const booking = await this.bookingRepo.findById(input.id);
     if (!booking) {
       throw new Error('Booking not found');
     }
-    await this.bookingRepo.cancel(input.bookingId);
+    await this.bookingRepo.cancel(input.id);
   }
 }
